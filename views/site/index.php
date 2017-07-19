@@ -55,8 +55,8 @@ if ($status == "success") {
     ?>
     <?php
 } else {
-
     ?>
+
 	<h3 class="text-center">Для успешного продолжения работы, введите символы расположенные ниже</h3>
 	<p class="text-center"><?php echo $captcha->cap_image ?></p>
     <?php $form = ActiveForm::begin() ?>

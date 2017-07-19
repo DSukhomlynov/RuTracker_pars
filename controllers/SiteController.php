@@ -44,7 +44,6 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
@@ -97,11 +96,29 @@ class SiteController extends Controller
         return $this->render('index', ['torr' => $torr, 'search' => $search, 'captcha' => $captcha, 'status' => $status]);
     }
 
+    /**
+     * @return string
+     */
     public function actionPagination()
     {
         $session = Yii::$app->session;
         $inquiry = $session['inquiry'];
         $session['id'] = $session['id']+1;
+        $page = $session['id'];
+        $torr = MyList::get_content($inquiry,$page);
+        return $this->render('pagination', ['torr' => $torr, 'id' => $page, 'inquiry' => $inquiry]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionDownload($id)
+    {
+        $session = Yii::$app->session;
+        $link = $session["download[$id]"];
+        MyList::download($link);
+        $inquiry = $session['inquiry'];
         $page = $session['id'];
         $torr = MyList::get_content($inquiry,$page);
         return $this->render('pagination', ['torr' => $torr, 'id' => $page, 'inquiry' => $inquiry]);

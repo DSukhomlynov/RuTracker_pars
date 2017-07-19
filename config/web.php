@@ -53,7 +53,7 @@ $config = [
                 ],
                 '<controller>/<action>/<id:\d+>'=>'<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
-                '<action:(about|pagination|index)>' => 'site/<action>',
+                '<action:(about|pagination|index|download)>' => 'site/<action>',
                 '<action:about>' => 'page/about',
             ],
         ],

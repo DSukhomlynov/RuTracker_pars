@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $url = Url::toRoute('/site/pagination/');
+$download = Url::toRoute('/site/download/');
 ?>
 	<h1 class="text-center">Торрент Парсер</h1>
 
@@ -22,14 +23,20 @@ if ($torr != 0 && $torr != 1) {
 		</tr>
 		</thead>
 		<tbody>
-        <?php foreach ($torr as $item): ?>
+        <?php $id = 0; foreach ($torr as $item): ?>
 			<tr>
 				<td class="active"><?= $item[0] ?></td>
 				<td class="info"><?= $item[4] ?></td>
 				<td class="success"><?= $item[2] ?></td>
 				<td class="danger"><?= $item[3] ?></td>
-				<td class="bg-warning"><a href="<?= $item[1] ?>" class="btn btn-default">Download</a>
-					<a href="/site/view/<?= $item->id ?>"><?php echo $item->title ?></a></td>
+
+				<?php
+				$session = Yii::$app->session;
+				$session["download[$id]"] = $item[1];
+				?>
+
+				<td class="bg-warning"><a href="/site/download/<?= $id ?>" class="btn btn-default">Download</a>
+				<?php $id++; ?>
 			</tr>
         <?php endforeach ?>
 	</table>

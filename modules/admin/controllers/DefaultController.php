@@ -34,11 +34,17 @@ class DefaultController extends Controller
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
+    /**
+     * @return string|yii\web\Response
+     */
     public function actionCreate()
     {
         $identification = MyList::getData();

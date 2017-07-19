@@ -37,6 +37,13 @@ class MyList extends ActiveRecord
 
     }
 
+    /**
+     * @param $login
+     * @param $password
+     * @param $code
+     * @param $captcha
+     * @return string
+     */
     public static function initializanion($login, $password, $code, &$captcha)
     {
         $ch = curl_init();
@@ -97,6 +104,11 @@ class MyList extends ActiveRecord
 
     }
 
+    /**
+     * @param $url
+     * @param $page
+     * @return mixed
+     */
     public static function get_content($url, $page)
     {
         $ch = curl_init();
@@ -144,4 +156,40 @@ class MyList extends ActiveRecord
         return $torr;
     }
 
+    /**
+     * @param $link
+     * @return bool
+     */
+    public static function download($link)
+    {
+        $ch = curl_init();
+        $name = substr($link, -9);
+
+        curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, Yii::getAlias('@cookies') . '/cookiefile');
+        curl_setopt($ch, CURLOPT_URL, $link);
+        curl_setopt($ch, CURLOPT_COOKIEJAR, Yii::getAlias('@cookies') . '/cookiefile');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "file_name=test.rar");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 6.0; ru; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3');
+
+        $res = curl_exec($ch);
+        $content = curl_exec($ch);
+        curl_close($ch);
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header("Content-Disposition: attachment; filename=torrent_$name.torrent");
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . strlen($content));
+        ob_clean();
+        flush();
+        echo $content;
+        flush();
+        return true;
+    }
 }
