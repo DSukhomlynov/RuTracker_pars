@@ -11,8 +11,15 @@ h1, h2, h3, th, p, label{
     color: #FFFFFF;
 }
 
-.col-lg-8{
-    color: #FFF;
+.test-class  {
+    background-color: #EDBB62;
+    width: 33%;
+    color: #226343;
+    display: none;
+}
+
+.has-error .test-class {
+    display: block;
 }
 
 .wrap {

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Dmitry_Suchomlinov__ <DimonDachnoe@yandex.ru>
+ * @version 1.0
+ */
+
 namespace app\controllers;
 
 use app\models\Captcha;
@@ -39,6 +44,9 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -110,7 +118,7 @@ class SiteController extends Controller
     }
 
     /**
-     * @param $id
+     * @param integer $id
      * @return string
      */
     public function actionDownload($id)

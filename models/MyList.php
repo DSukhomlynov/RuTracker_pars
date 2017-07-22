@@ -38,10 +38,10 @@ class MyList extends ActiveRecord
     }
 
     /**
-     * @param $login
-     * @param $password
-     * @param $code
-     * @param $captcha
+     * @param string $login
+     * @param string $password
+     * @param bool $code
+     * @param string $captcha
      * @return string
      */
     public static function initializanion($login, $password, $code, &$captcha)
@@ -60,7 +60,7 @@ class MyList extends ActiveRecord
         $login = rawurlencode($login);
         $password = rawurlencode($password);
 
-        if ($code == NULL) {
+        if ($code == null) {
             $data = array('redirect' => 'search.php',
                 'login_username' => $login,
                 'login_password' => $password,
@@ -70,7 +70,7 @@ class MyList extends ActiveRecord
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         }
 
-        if ($code != NULL) {
+        if ($code != null) {
             $data = array('redirect' => 'index.php',
                 'login_username' => $login,
                 'login_password' => $password,
@@ -105,8 +105,8 @@ class MyList extends ActiveRecord
     }
 
     /**
-     * @param $url
-     * @param $page
+     * @param string $url
+     * @param integer $page
      * @return mixed
      */
     public static function get_content($url, $page)
@@ -157,7 +157,7 @@ class MyList extends ActiveRecord
     }
 
     /**
-     * @param $link
+     * @param string $link
      * @return bool
      */
     public static function download($link)
