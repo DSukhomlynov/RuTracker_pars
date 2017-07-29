@@ -3,8 +3,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$url = Url::toRoute('/site/pagination/');
-$download = Url::toRoute('/site/download/');
 ?>
 	<h1 class="text-center">Торрент Парсер</h1>
 
@@ -35,13 +33,13 @@ if ($torr != 0 && $torr != 1) {
 				$session["download[$id]"] = $item[1];
 				?>
 
-				<td class="bg-warning"><a href="/site/download/<?= $id ?>" class="btn btn-default">Download</a>
+				<td class="bg-warning"><a href="<?= Url::to(['site/download', 'id' => $id]) ?>" class="btn btn-default">Download</a>
 				<?php $id++; ?>
 			</tr>
         <?php endforeach ?>
 	</table>
 
-	<a href="<?= $url ?>" class="btn btn-primary btn-lg">Еще результаты</a>
+	<a href="<?= Url::toRoute('/site/pagination/') ?>" class="btn btn-primary btn-lg">Еще результаты</a>
 	
     <?php
 } elseif ($torr == 1) {
